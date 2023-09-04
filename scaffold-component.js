@@ -29,42 +29,29 @@ if (existsSync(directoryPath)) {
 // Make the directory
 mkdirSync(directoryPath);
 
+// component
 writeFileSync(
   `${directoryPath}/${componentName}.tsx`,
   `
-import './${componentName}.scss';
+import css from './${componentName}.module.scss';
 
-export const ${componentName} = () => (
-  <div>I'm a ${componentName} component!</div>
+export function ${componentName}() {
+  return <div>I'm a ${componentName} component!</div>;
+}
+`.trimStart()
 );
-`.trim()
-);
 
-writeFileSync(`${directoryPath}/${componentName}.scss`, "");
-
+// index file
 writeFileSync(
-  `${directoryPath}/${componentName}.test.ts`,
+  `${directoryPath}/index.ts`,
   `
-test('This is an example test that should be populated or removed before merging.', () => {
-  expect(sum(1, 2)).toBe(3);
-});
-`.trim()
+export { ${componentName} } from './${componentName}';
+`.trimStart()
 );
 
 writeFileSync(
-  `${directoryPath}/${componentName}.stories.mdx`,
+  `${directoryPath}/${componentName}.module.scss`,
   `
-import { Canvas, Meta, Story } from '@storybook/addon-docs';
-import { ${componentName} } from './${componentName}.tsx';
-
-<Meta title="Components/${componentName}" />
-
-# ${componentName}
-
-<Canvas>
-  <Story name="Basic Usage">
-    <${componentName} />
-  </Story>
-</Canvas>
-`.trim()
+@import '@/styles/variables';
+`.trimStart()
 );

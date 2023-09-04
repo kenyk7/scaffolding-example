@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "scaffold-component": "node scaffold-component.js"
+    "component": "node scaffold-component.js"
   },
   "author": "",
   "license": "ISC"
